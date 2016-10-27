@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0-*",
+  "description": "TwitterDdd.Domain Class Library",
+  "authors": [ "thierry habart" ],
+  "packOptions": {
+    "tags": [ "" ],
+    "licenseUrl": "",
+    "projectUrl": ""
+  },
+  "dependencies": {
+  },
+  "tooling": {
+    "defaultNamespace": "SimpleIdentityServer.Core"
+  },
+  "frameworks": {
+    "net46": {
+      "buildOptions": {
+        "define": [
+          "NET"
+        ]
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      },
+      "buildOptions": {
+        "define": [
+          "NETSTANDARD"
+        ]
+      }
+    }
+  }
+}

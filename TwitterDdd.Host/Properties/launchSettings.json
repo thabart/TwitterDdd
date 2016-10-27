@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TwitterDdd.Host": {
+      "commandName": "Project",
+      "commandLineArgs": "--server.urls=http://*:5554"
+    }
+  }
+}
