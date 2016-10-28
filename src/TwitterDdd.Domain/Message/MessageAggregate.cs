@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using TwitterDdd.Domain.User;
 
 namespace TwitterDdd.Domain.Message
 {
@@ -26,7 +27,7 @@ namespace TwitterDdd.Domain.Message
         void Cancel();
     }
 
-    public class MessageAggregate
+    public class MessageAggregate : IMessageAggregate
     {
         private readonly MessageAggregateState _state;
 
@@ -51,7 +52,7 @@ namespace TwitterDdd.Domain.Message
 
             if (content.Length > 140)
             {
-                // TODO : Throw invalid length exception.
+                throw new ArgumentOutOfRangeException("the content size cannot exceed 140 characters");
             }
 
             if (string.IsNullOrWhiteSpace(senderSubject))
@@ -61,15 +62,21 @@ namespace TwitterDdd.Domain.Message
             
             if (_state.Status != MessageStatus.NotCreated)
             {
-                // TODO : Send code + message
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("message cannot be create twice");
             }
 
-            // 2. Parse the content to extract the hashtags.
-            // TODO
+            // 2. Get user state & check subject exists.
+            var userAggregate = new UserAggregate();
+            userAggregate.Create(senderSubject);
+
+            // 3. Parse the content to extract the hashtags.
+            _state.Content = content;
+            _state.Sender = new SenderState
+            {
+                Subject = senderSubject
+            };
+            _state.Status = MessageStatus.ReadyToBeSent;
             _state.HashTags = new[] { "hashtag" };
-
-
         }
 
         public void AddLike(string senderSubject)
@@ -90,13 +97,13 @@ namespace TwitterDdd.Domain.Message
 
         public void Send()
         {
+            // 1. Check status
             if (_state.Status != MessageStatus.ReadyToBeSent)
             {
-                // TODO : send code + message
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("message is not ready to be sent");
             }
-
-            // 2. Send the message
+            
+            // 2. Send message.
         }
 
         public void Cancel()
