@@ -25,22 +25,15 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
-    "Microsoft.Extensions.Primitives": "1.0.0"
+    "Microsoft.Extensions.Primitives": "1.0.0",
+    "TwitterDdd.Command": {
+      "target": "project"
+    }
   },
   "frameworks": {
     "net46": {
       "frameworkAssemblies": {
         "System.Web": "4.0.0.0"
-      }
-    },
-    "netcoreapp1.0": {
-      "imports": [ "dotnet5.6", "dnxcore50", "portable-net451+win8" ],
-      "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        },
-        "System.Runtime.Serialization.Json": "4.0.2"
       }
     }
   }

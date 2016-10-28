@@ -19,11 +19,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
+using TwitterDdd.Command.Message;
 
 namespace TwitterDdd.Host
 {
     public class Startup
     {
+        private const string EndPointName = "TwitterDdd";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -38,6 +42,26 @@ namespace TwitterDdd.Host
         
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure NServiceBus
+            // 1. Configure endpoint.
+            var edpConfiguration = new EndpointConfiguration(EndPointName);
+            edpConfiguration.UseSerialization<JsonSerializer>();
+            edpConfiguration.EnableInstallers();
+            edpConfiguration.UsePersistence<InMemoryPersistence>();
+            edpConfiguration.SendFailedMessagesTo("error");
+            // edpConfiguration.Send();
+            // 2. Configure transport & routing
+            var transport = edpConfiguration.UseTransport<MsmqTransport>();
+            transport.Transactions(TransportTransactionMode.None);
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(
+                assembly: typeof(SendMessageCommand).Assembly,
+                destination: EndPointName);
+            // 3. Register message session.
+            var edpInstance = Endpoint.Start(edpConfiguration).GetAwaiter().GetResult();
+            services.AddSingleton<IMessageSession>(edpInstance);
+
+            // Configure MVC
             services.AddMvc();
         }
 
