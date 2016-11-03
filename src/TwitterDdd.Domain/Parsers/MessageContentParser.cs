@@ -14,15 +14,40 @@
 // limitations under the License.
 #endregion
 
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 namespace TwitterDdd.Domain.Parsers
 {
     public interface IMessageContentParser
     {
-
+        IEnumerable<string> ExtractHashTags(string content);
     }
 
-    internal class MessageContentParser
+    internal class MessageContentParser : IMessageContentParser
     {
+        public IEnumerable<string> ExtractHashTags(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
 
+            var result = new List<string>();
+            var regex = new Regex(@"(?<=#)\w+");
+            var matches = regex.Matches(content);
+            if (matches == null)
+            {
+                return result;
+            }
+
+            foreach (Match match in matches)
+            {
+                result.Add(match.Value);
+            }
+
+            return result;
+        }
     }
 }

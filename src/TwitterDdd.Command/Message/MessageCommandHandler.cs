@@ -17,17 +17,25 @@
 using System.Threading.Tasks;
 using NServiceBus;
 using TwitterDdd.Domain.Message;
+using TwitterDdd.Domain.Repositories;
 
 namespace TwitterDdd.Command.Message
 {
     public class MessageCommandHandler : IHandleMessages<SendMessageCommand>
     {
-        public Task Handle(SendMessageCommand message, IMessageHandlerContext context)
+        private readonly IMessageAggregateRepository _messageAggregateRepository;
+
+        public MessageCommandHandler(IMessageAggregateRepository messageAggregateRepository)
+        {
+            _messageAggregateRepository = messageAggregateRepository;
+        }
+
+        public async Task Handle(SendMessageCommand message, IMessageHandlerContext context)
         {
             var messageAggregate = new MessageAggregate();
             messageAggregate.Create(message.Content, message.SenderSubject);
             messageAggregate.Send();
-            return Task.FromResult(0);
+            await _messageAggregateRepository.InsertMessage(messageAggregate);
         }
     }
 }

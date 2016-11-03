@@ -15,12 +15,22 @@
 #endregion
 
 using System;
+using System.Threading.Tasks;
+using TwitterDdd.Domain.Message;
+using TwitterDdd.Domain.Repositories;
 
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.DataAccess.InMemory
 {
-    public class LikerState
+    internal class MessageAggregateRepository : IMessageAggregateRepository
     {
-        public string Subject { get; set; }
-        public DateTime CreateDateTime { get; set; }
+        public Task<MessageAggregate> GetMessage(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertMessage(MessageAggregate message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

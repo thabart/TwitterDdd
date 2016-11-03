@@ -39,7 +39,8 @@ namespace TwitterDdd.Domain.Message
             _state.Sender = null;
             _state.Attachments = new List<AttachmentState>();
             _state.Status = MessageStatus.NotCreated;
-            _state.Likers = new List<LikerState>();
+            _state.Likes = new List<LikeState>();
+            _state.Shares = new List<ShareState>();
         }
 
         public void Create(string content, string senderSubject)
@@ -102,8 +103,6 @@ namespace TwitterDdd.Domain.Message
             {
                 throw new InvalidOperationException("message is not ready to be sent");
             }
-            
-            // 2. Send message.
         }
 
         public void Cancel()

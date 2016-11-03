@@ -14,27 +14,13 @@
 // limitations under the License.
 #endregion
 
-using System.Collections.Generic;
+using System;
 
 namespace TwitterDdd.Domain.Message
 {
-    public enum MessageStatus
+    public class LikeState
     {
-        NotCreated,
-        ReadyToBeSent,
-        Sent,
-        Cancelled
-    }
-
-    public class MessageAggregateState
-    {
-        public string Content { get; set; }
-        public MessageStatus Status { get; set; }
-        public SenderState Sender { get; set; }
-        public bool IsPinned { get; set; }
-        public IEnumerable<string> HashTags { get; set; }
-        public IEnumerable<AttachmentState> Attachments { get; set; }
-        public IEnumerable<LikeState> Likes { get; set; }
-        public IEnumerable<ShareState> Shares { get; set; }
+        public string Subject { get; set; }
+        public DateTime CreateDateTime { get; set; }
     }
 }
