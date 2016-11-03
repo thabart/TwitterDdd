@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-*",
-  "description": "TwitterDdd.DataAccess.InMemory Class Library",
+  "description": "TwitterDdd.Writer.DataAccess.InMemory Class Library",
   "authors": [ "thierry habart" ],
   "packOptions": {
     "tags": [ "" ],
@@ -14,7 +14,7 @@
     }
   },
   "tooling": {
-    "defaultNamespace": "TwitterDdd.DataAccess.InMemory"
+    "defaultNamespace": "TwitterDdd.Writer.DataAccess.InMemory"
   },
   "frameworks": {
     "net46": {

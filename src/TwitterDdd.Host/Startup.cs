@@ -22,9 +22,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
-using TwitterDdd.DataAccess.InMemory;
+using TwitterDdd.Writer.DataAccess.InMemory;
 using TwitterDdd.Domain.Message.Commands;
-using TwitterDdd.Domain.Message.Repositories;
 
 namespace TwitterDdd.Host
 {
@@ -47,7 +46,9 @@ namespace TwitterDdd.Host
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterInstance<IMessageAggregateRepository>(new MessageAggregateRepository());
+            services.UseInMemory();
+            builder.Populate(services);
+            // builder.RegisterInstance<IMessageAggregateRepository>(new MessageAggregateRepository());
             var container = builder.Build();
             // Configure NServiceBus
             // 1. Configure endpoint.

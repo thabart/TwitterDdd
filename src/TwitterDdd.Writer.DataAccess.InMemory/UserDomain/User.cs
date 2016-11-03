@@ -14,7 +14,7 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.DataAccess.InMemory.UserDomain
+namespace TwitterDdd.Writer.DataAccess.InMemory.UserDomain
 {
     internal class User
     {

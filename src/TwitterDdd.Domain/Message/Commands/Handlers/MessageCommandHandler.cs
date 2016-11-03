@@ -14,26 +14,28 @@
 // limitations under the License.
 #endregion
 
-using System;
 using System.Threading.Tasks;
-using TwitterDdd.DataAccess.InMemory.Mappings;
-using TwitterDdd.DataAccess.InMemory.MessageDomain;
+using NServiceBus;
 using TwitterDdd.Domain.Message.Models;
 using TwitterDdd.Domain.Message.Repositories;
 
-namespace TwitterDdd.DataAccess.InMemory
+namespace TwitterDdd.Domain.Message.Commands.Handlers
 {
-    public class MessageAggregateRepository : BaseMessageAggregateRepository
+    public class MessageCommandHandler : IHandleMessages<SendMessageCommand>
     {
-        protected override Task<bool> InsertMessage(MessageAggregateState state)
+        private readonly IMessageAggregateRepository _messageAggregateRepository;
+
+        public MessageCommandHandler(IMessageAggregateRepository messageAggregateRepository)
         {
-            if (state == null)
-            {
-                throw new ArgumentNullException(nameof(state));
-            }
-                        
-            MessageContext.Instance().Messages.Add(state.ToModel());
-            return Task.FromResult(true);
+            _messageAggregateRepository = messageAggregateRepository;
+        }
+
+        public async Task Handle(SendMessageCommand message, IMessageHandlerContext context)
+        {
+            var messageAggregate = new MessageAggregate(context);
+            messageAggregate.Create(message.Content, message.SenderSubject);
+            await messageAggregate.Send();
+            await _messageAggregateRepository.InsertMessage(messageAggregate);
         }
     }
 }

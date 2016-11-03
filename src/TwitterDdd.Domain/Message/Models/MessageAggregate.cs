@@ -108,7 +108,7 @@ namespace TwitterDdd.Domain.Message.Models
                 throw new InvalidOperationException("message is not ready to be sent");
             }
 
-            await _context.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags)).ConfigureAwait(false);
+            await _context.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags));
         }
 
         public void Cancel()

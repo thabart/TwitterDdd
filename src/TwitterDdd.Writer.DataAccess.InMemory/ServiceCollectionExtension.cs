@@ -18,7 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using TwitterDdd.Domain.Message.Repositories;
 
-namespace TwitterDdd.DataAccess.InMemory
+namespace TwitterDdd.Writer.DataAccess.InMemory
 {
     public static class ServiceCollectionExtension
     {

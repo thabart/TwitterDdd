@@ -7,7 +7,7 @@
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>7eb2ebc7-fee9-4fae-b4c5-b770a8ccbd13</ProjectGuid>
-    <RootNamespace>TwitterDdd.DataAccess.InMemory</RootNamespace>
+    <RootNamespace>TwitterDdd.Writer.DataAccess.InMemory</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

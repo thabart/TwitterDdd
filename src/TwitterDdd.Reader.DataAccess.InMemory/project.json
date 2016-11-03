@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0-*",
+  "description": "TwitterDdd.Reader.DataAccess.InMemory Class Library",
+  "authors": [ "thierry habart" ],
+  "packOptions": {
+    "tags": [ "" ],
+    "licenseUrl": "",
+    "projectUrl": ""
+  },
+  "dependencies": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+    "TwitterDdd.Domain": {
+      "target": "project"
+    }
+  },
+  "tooling": {
+    "defaultNamespace": "TwitterDdd.Reader.DataAccess.InMemory"
+  },
+  "frameworks": {
+    "net46": {
+      "frameworkAssemblies": {
+        "System.Runtime": {
+          "type": "build",
+          "version": ""
+        },
+        "System.Runtime.Serialization": "4.0.0.0"
+      },
+      "buildOptions": {
+        "define": [
+          "NET"
+        ]
+      }
+    }
+  }
+}

@@ -15,11 +15,11 @@
 #endregion
 
 using System;
-using TwitterDdd.DataAccess.InMemory.UserDomain;
+using TwitterDdd.Writer.DataAccess.InMemory.UserDomain;
 
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+namespace TwitterDdd.Writer.DataAccess.InMemory.MessageDomain
 {
-    internal class Like
+    internal class Share
     {
         public DateTime CreateDateTime { get; set; }
         public User User { get; set; }

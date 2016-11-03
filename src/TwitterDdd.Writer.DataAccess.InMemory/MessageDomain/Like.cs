@@ -14,11 +14,14 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+using System;
+using TwitterDdd.Writer.DataAccess.InMemory.UserDomain;
+
+namespace TwitterDdd.Writer.DataAccess.InMemory.MessageDomain
 {
-    internal class Attachment
+    internal class Like
     {
-        public int Type { get; set; }
-        public string Url { get; set; }
+        public DateTime CreateDateTime { get; set; }
+        public User User { get; set; }
     }
 }

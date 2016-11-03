@@ -14,22 +14,9 @@
 // limitations under the License.
 #endregion
 
-using System;
-using System.Collections.Generic;
-using TwitterDdd.DataAccess.InMemory.UserDomain;
-
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+namespace TwitterDdd.Domain.Message.Repositories
 {
-    internal class Message
+    public class MessageRepository
     {
-        public string Content { get; set; }
-        public int Status { get; set; }
-        public bool IsPinned { get; set; }
-        public User Sender { get; set; }
-        public DateTime CreateDateTime { get; set; }
-        public IEnumerable<Attachment> Attachments { get; set; }
-        public IEnumerable<HashTag> HashTags { get; set; }
-        public IEnumerable<Share> Shares { get; set; }
-        public IEnumerable<Like> Likes { get; set; }
     }
 }

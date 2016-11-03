@@ -14,10 +14,29 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+using System.Collections.Generic;
+
+namespace TwitterDdd.Writer.DataAccess.InMemory.MessageDomain
 {
-    internal class HashTag
+    internal class MessageContext
     {
-        public string Value { get; set; }
+        private static MessageContext _instance;
+
+        private MessageContext()
+        {
+            Messages = new List<Message>();
+        }
+
+        public static MessageContext Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new MessageContext();
+            }
+
+            return _instance;
+        }
+
+        public IList<Message> Messages { get; set; }
     }
 }

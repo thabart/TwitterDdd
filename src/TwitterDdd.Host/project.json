@@ -32,7 +32,7 @@
     "TwitterDdd.Domain": {
       "target": "project"
     },
-    "TwitterDdd.DataAccess.InMemory": {
+    "TwitterDdd.Writer.DataAccess.InMemory": {
       "target": "project"
     }
   },

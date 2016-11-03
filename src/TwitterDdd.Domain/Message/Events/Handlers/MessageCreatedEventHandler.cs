@@ -14,24 +14,17 @@
 // limitations under the License.
 #endregion
 
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using NServiceBus;
+using TwitterDdd.Domain.Message.Events;
 
-namespace TwitterDdd.DataAccess.InMemory.UserDomain
+namespace TwitterDdd.Events.Consumer.Message.Handlers
 {
-    internal class UserContext
+    public class MessageCreatedEventHandler : IHandleMessages<MessageCreatedEvent>
     {
-        private static UserContext _instance;
-
-        public static UserContext Instance()
+        public Task Handle(MessageCreatedEvent message, IMessageHandlerContext context)
         {
-            if (_instance == null)
-            {
-                _instance = new UserContext();
-            }
-
-            return _instance;
+            return Task.FromResult(0);
         }
-
-        public IEnumerable<User> Users { get; set; }
     }
 }

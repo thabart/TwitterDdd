@@ -16,27 +16,22 @@
 
 using System.Collections.Generic;
 
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+namespace TwitterDdd.Writer.DataAccess.InMemory.UserDomain
 {
-    internal class MessageContext
+    internal class UserContext
     {
-        private static MessageContext _instance;
+        private static UserContext _instance;
 
-        private MessageContext()
-        {
-            Messages = new List<Message>();
-        }
-
-        public static MessageContext Instance()
+        public static UserContext Instance()
         {
             if (_instance == null)
             {
-                _instance = new MessageContext();
+                _instance = new UserContext();
             }
 
             return _instance;
         }
 
-        public IList<Message> Messages { get; set; }
+        public IEnumerable<User> Users { get; set; }
     }
 }

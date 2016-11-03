@@ -14,14 +14,10 @@
 // limitations under the License.
 #endregion
 
-using System;
-using TwitterDdd.DataAccess.InMemory.UserDomain;
-
-namespace TwitterDdd.DataAccess.InMemory.MessageDomain
+namespace TwitterDdd.Writer.DataAccess.InMemory.MessageDomain
 {
-    internal class Share
+    internal class HashTag
     {
-        public DateTime CreateDateTime { get; set; }
-        public User User { get; set; }
+        public string Value { get; set; }
     }
 }
