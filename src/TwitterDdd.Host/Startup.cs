@@ -14,13 +14,17 @@
 // limitations under the License.
 #endregion
 
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
-using TwitterDdd.Command.Message;
+using TwitterDdd.DataAccess.InMemory;
+using TwitterDdd.Domain.Message.Commands;
+using TwitterDdd.Domain.Message.Repositories;
 
 namespace TwitterDdd.Host
 {
@@ -42,6 +46,11 @@ namespace TwitterDdd.Host
         
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ContainerBuilder();
+            /*
+            builder.RegisterInstance<IMessageAggregateRepository>(new MessageAggregateRepository());
+            var container = builder.Build();
+            */
             // Configure NServiceBus
             // 1. Configure endpoint.
             var edpConfiguration = new EndpointConfiguration(EndPointName);
@@ -49,7 +58,12 @@ namespace TwitterDdd.Host
             edpConfiguration.EnableInstallers();
             edpConfiguration.UsePersistence<InMemoryPersistence>();
             edpConfiguration.SendFailedMessagesTo("error");
-            // edpConfiguration.Send();
+            /*
+            edpConfiguration.UseContainer<AutofacBuilder>(
+                customizations: customizations =>
+                {
+                    customizations.ExistingLifetimeScope(container);
+                });*/
             // 2. Configure transport & routing
             var transport = edpConfiguration.UseTransport<MsmqTransport>();
             transport.Transactions(TransportTransactionMode.None);

@@ -14,17 +14,23 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.Domain.Message
+using System;
+
+namespace TwitterDdd.Domain.User.Models
 {
-    public enum AttachmentTypes
+    public enum UserStates
     {
-        File,
-        Video
+        NotCreated,
+        Created,
+        Enabled,
+        Disabled
     }
 
-    public class AttachmentState
+    public class UserAggregateState : BaseAggregateState
     {
-        public AttachmentTypes Type { get; set; }
-        public string Url { get; set; }
+        public string Subject { get; set; }
+        public string Picture { get; set; }
+        public DateTime CreateDateTime { get; set; }
+        public UserStates State { get; set; }
     }
 }

@@ -14,14 +14,13 @@
 // limitations under the License.
 #endregion
 
-using System.Threading.Tasks;
-using TwitterDdd.Domain.Message;
+using System;
 
-namespace TwitterDdd.Domain.Repositories
+namespace TwitterDdd.Domain.Message.Models
 {
-    public interface IMessageAggregateRepository
+    public class LikeState
     {
-        Task<MessageAggregate> GetMessage(string id);
-        Task<bool> InsertMessage(MessageAggregate message);
+        public string Subject { get; set; }
+        public DateTime CreateDateTime { get; set; }
     }
 }

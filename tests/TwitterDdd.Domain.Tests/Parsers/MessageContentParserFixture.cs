@@ -14,9 +14,11 @@
 // limitations under the License.
 #endregion
 
+using Moq;
+using NServiceBus;
 using System;
 using System.Linq;
-using TwitterDdd.Domain.Parsers;
+using TwitterDdd.Domain.Message.Parsers;
 using Xunit;
 
 namespace TwitterDdd.Domain.Tests.Parsers

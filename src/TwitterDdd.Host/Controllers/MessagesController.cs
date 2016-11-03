@@ -17,7 +17,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using System.Threading.Tasks;
-using TwitterDdd.Command.Message;
+using TwitterDdd.Domain.Message.Commands;
 
 namespace TwitterDdd.Host.Controllers
 {

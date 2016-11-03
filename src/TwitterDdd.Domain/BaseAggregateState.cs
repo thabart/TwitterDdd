@@ -16,21 +16,10 @@
 
 using System;
 
-namespace TwitterDdd.Domain.User
+namespace TwitterDdd.Domain
 {
-    public enum UserStates
+    public class BaseAggregateState
     {
-        NotCreated,
-        Created,
-        Enabled,
-        Disabled
-    }
-
-    public class UserState
-    {
-        public string Subject { get; set; }
-        public string Picture { get; set; }
-        public DateTime CreateDateTime { get; set; }
-        public UserStates State { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -14,7 +14,7 @@
 // limitations 
 #endregion
 
-namespace TwitterDdd.Domain.User
+namespace TwitterDdd.Domain.User.Models
 {
     public interface IUserAggregate
     {
@@ -23,11 +23,11 @@ namespace TwitterDdd.Domain.User
 
     public class UserAggregate : IUserAggregate
     {
-        private readonly UserState _userState;
+        private readonly UserAggregateState _userState;
 
         public UserAggregate()
         {
-            _userState = new UserState
+            _userState = new UserAggregateState
             {
                 Picture = string.Empty,
                 Subject = string.Empty,

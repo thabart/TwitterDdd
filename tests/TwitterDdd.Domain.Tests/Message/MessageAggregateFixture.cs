@@ -14,9 +14,11 @@
 // limitations under the License.
 #endregion
 
+using Moq;
+using NServiceBus;
 using System;
 using System.Text;
-using TwitterDdd.Domain.Message;
+using TwitterDdd.Domain.Message.Models;
 using Xunit;
 
 namespace TwitterDdd.Domain.Tests.Message
@@ -24,6 +26,7 @@ namespace TwitterDdd.Domain.Tests.Message
     public class MessageAggregateFixture
     {
         private IMessageAggregate _messageAggregate;
+        private Mock<IMessageSession> _messageSessionStub;
 
         [Fact]
         public void When_Passing_Invalid_Parameters_To_Create_Then_Exceptions_Are_Thrown()
@@ -41,7 +44,8 @@ namespace TwitterDdd.Domain.Tests.Message
 
         private void InitializeFakeObjects()
         {
-            _messageAggregate = new MessageAggregate();
+            _messageSessionStub = new Mock<IMessageSession>();
+            _messageAggregate = new MessageAggregate(_messageSessionStub.Object);
         }
     }
 }

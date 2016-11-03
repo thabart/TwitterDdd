@@ -16,26 +16,33 @@
 
 using System.Threading.Tasks;
 using NServiceBus;
-using TwitterDdd.Domain.Message;
-using TwitterDdd.Domain.Repositories;
+using TwitterDdd.Domain.Message.Repositories;
+using TwitterDdd.Domain.Message.Models;
+using NServiceBus.ObjectBuilder;
 
-namespace TwitterDdd.Command.Message
+namespace TwitterDdd.Domain.Message.Commands
 {
     public class MessageCommandHandler : IHandleMessages<SendMessageCommand>
     {
-        private readonly IMessageAggregateRepository _messageAggregateRepository;
+        // private readonly IMessageAggregateRepository _messageAggregateRepository;
+        private readonly IMessageSession _messageSession;
 
-        public MessageCommandHandler(IMessageAggregateRepository messageAggregateRepository)
+        public MessageCommandHandler(
+            IBuilder builder,
+            IMessageSession messageSession)
         {
-            _messageAggregateRepository = messageAggregateRepository;
+            // _messageAggregateRepository = messageAggregateRepository;
+            _messageSession = messageSession;
+            // var o = builder.Build<IMessageAggregateRepository>();
+            // string s = "";
         }
 
         public async Task Handle(SendMessageCommand message, IMessageHandlerContext context)
         {
-            var messageAggregate = new MessageAggregate();
+            var messageAggregate = new MessageAggregate(_messageSession);
             messageAggregate.Create(message.Content, message.SenderSubject);
-            messageAggregate.Send();
-            await _messageAggregateRepository.InsertMessage(messageAggregate);
+            await messageAggregate.Send();
+            // await _messageAggregateRepository.InsertMessage(messageAggregate);
         }
     }
 }

@@ -14,26 +14,28 @@
 // limitations under the License.
 #endregion
 
+using NServiceBus;
 using System;
-using System.Threading.Tasks;
-using TwitterDdd.DataAccess.InMemory.Mappings;
-using TwitterDdd.DataAccess.InMemory.MessageDomain;
+using System.Collections.Generic;
 using TwitterDdd.Domain.Message.Models;
-using TwitterDdd.Domain.Message.Repositories;
 
-namespace TwitterDdd.DataAccess.InMemory
+namespace TwitterDdd.Domain.Message.Events
 {
-    public class MessageAggregateRepository : BaseMessageAggregateRepository
+    public class MessageCreatedEvent : IEvent
     {
-        protected override Task<bool> InsertMessage(MessageAggregateState state)
+        public MessageCreatedEvent(Guid id, MessageStatus status, string content, string sender, IEnumerable<string> hashTags)
         {
-            if (state == null)
-            {
-                throw new ArgumentNullException(nameof(state));
-            }
-                        
-            MessageContext.Instance().Messages.Add(state.ToModel());
-            return Task.FromResult(true);
+            Id = id;
+            Status = status;
+            Content = content;
+            Sender = sender;
+            HashTags = hashTags;
         }
+
+        public Guid Id { get; private set; }
+        public MessageStatus Status { get; private set; }
+        public string Content { get; set; }
+        public string Sender { get; set; }
+        public IEnumerable<string> HashTags { get; set; }
     }
 }

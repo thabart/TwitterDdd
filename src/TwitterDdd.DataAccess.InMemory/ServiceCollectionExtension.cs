@@ -16,7 +16,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TwitterDdd.Domain.Repositories;
+using TwitterDdd.Domain.Message.Repositories;
 
 namespace TwitterDdd.DataAccess.InMemory
 {

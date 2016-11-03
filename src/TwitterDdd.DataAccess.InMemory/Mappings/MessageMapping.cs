@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TwitterDdd.DataAccess.InMemory.MessageDomain;
 using TwitterDdd.DataAccess.InMemory.UserDomain;
-using TwitterDdd.Domain.Message;
+using TwitterDdd.Domain.Message.Models;
 
 namespace TwitterDdd.DataAccess.InMemory.Mappings
 {

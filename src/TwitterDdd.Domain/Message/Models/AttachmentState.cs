@@ -14,13 +14,17 @@
 // limitations under the License.
 #endregion
 
-using System;
-
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.Domain.Message.Models
 {
-    public class ShareState
+    public enum AttachmentTypes
     {
-        public string Subject { get; set; }
-        public DateTime CreateDateTime { get; set; }
+        File,
+        Video
+    }
+
+    public class AttachmentState
+    {
+        public AttachmentTypes Type { get; set; }
+        public string Url { get; set; }
     }
 }

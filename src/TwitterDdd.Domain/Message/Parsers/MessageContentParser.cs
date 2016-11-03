@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace TwitterDdd.Domain.Parsers
+namespace TwitterDdd.Domain.Message.Parsers
 {
     public interface IMessageContentParser
     {

@@ -14,13 +14,14 @@
 // limitations under the License.
 #endregion
 
-using NServiceBus;
+using System.Threading.Tasks;
+using TwitterDdd.Domain.Message.Models;
 
-namespace TwitterDdd.Command.Message
+namespace TwitterDdd.Domain.Message.Repositories
 {
-    public class SendMessageCommand : ICommand
+    public interface IMessageAggregateRepository
     {
-        public string Content { get; set; }
-        public string SenderSubject { get; set; }
+        Task<MessageAggregate> GetMessage(string id);
+        Task<bool> InsertMessage(MessageAggregate message);
     }
 }

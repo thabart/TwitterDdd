@@ -26,7 +26,10 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Primitives": "1.0.0",
-    "TwitterDdd.Command": {
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
+    "Autofac": "4.1.1",
+    "NServiceBus.Autofac": "6.0.0",
+    "TwitterDdd.Domain": {
       "target": "project"
     },
     "TwitterDdd.DataAccess.InMemory": {

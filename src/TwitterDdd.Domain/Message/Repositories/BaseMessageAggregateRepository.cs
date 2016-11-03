@@ -16,9 +16,9 @@
 
 using System;
 using System.Threading.Tasks;
-using TwitterDdd.Domain.Message;
+using TwitterDdd.Domain.Message.Models;
 
-namespace TwitterDdd.Domain.Repositories
+namespace TwitterDdd.Domain.Message.Repositories
 {
     public class BaseMessageAggregateRepository : IMessageAggregateRepository
     {

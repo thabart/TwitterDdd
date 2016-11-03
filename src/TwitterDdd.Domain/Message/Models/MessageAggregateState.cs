@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.Domain.Message.Models
 {
     public enum MessageStatus
     {
@@ -27,7 +27,7 @@ namespace TwitterDdd.Domain.Message
         Cancelled
     }
 
-    public class MessageAggregateState
+    public class MessageAggregateState : BaseAggregateState
     {
         public string Content { get; set; }
         public MessageStatus Status { get; set; }

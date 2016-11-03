@@ -16,9 +16,9 @@
 
 using System;
 
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.Domain.Message.Models
 {
-    public class LikeState
+    public class ShareState
     {
         public string Subject { get; set; }
         public DateTime CreateDateTime { get; set; }

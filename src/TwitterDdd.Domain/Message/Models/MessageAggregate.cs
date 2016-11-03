@@ -14,26 +14,30 @@
 // limitations under the License.
 #endregion
 
+using NServiceBus;
 using System;
 using System.Collections.Generic;
-using TwitterDdd.Domain.Parsers;
-using TwitterDdd.Domain.User;
+using System.Threading.Tasks;
+using TwitterDdd.Domain.Message.Events;
+using TwitterDdd.Domain.Message.Parsers;
 
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.Domain.Message.Models
 {
     public interface IMessageAggregate
     {
         void Create(string content, string senderSubject);
-        void Send();
+        Task Send();
         void Cancel();
     }
 
     public class MessageAggregate : IMessageAggregate
     {
         private readonly IMessageContentParser _messageContentParser;
+        private readonly IMessageSession _messageSession;
 
-        public MessageAggregate()
+        public MessageAggregate(IMessageSession messageSession)
         {
+            _messageSession = messageSession;
             State = new MessageAggregateState
             {
                 Content = string.Empty,
@@ -72,12 +76,8 @@ namespace TwitterDdd.Domain.Message
             {
                 throw new InvalidOperationException("message cannot be create twice");
             }
-
-            // 2. Get user state & check subject exists.
-            var userAggregate = new UserAggregate();
-            userAggregate.Create(senderSubject);
-
-            // 3. Parse the content to extract the hashtags.
+            
+            // 2. Parse the content to extract the hashtags.
             State.Content = content;
             State.Sender = senderSubject;
             State.Status = MessageStatus.ReadyToBeSent;
@@ -100,13 +100,15 @@ namespace TwitterDdd.Domain.Message
 
         }
 
-        public void Send()
+        public async Task Send()
         {
             // 1. Check status
             if (State.Status != MessageStatus.ReadyToBeSent)
             {
                 throw new InvalidOperationException("message is not ready to be sent");
             }
+
+            await _messageSession.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags)).ConfigureAwait(false);
         }
 
         public void Cancel()
