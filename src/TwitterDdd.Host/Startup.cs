@@ -47,10 +47,8 @@ namespace TwitterDdd.Host
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = new ContainerBuilder();
-            /*
             builder.RegisterInstance<IMessageAggregateRepository>(new MessageAggregateRepository());
             var container = builder.Build();
-            */
             // Configure NServiceBus
             // 1. Configure endpoint.
             var edpConfiguration = new EndpointConfiguration(EndPointName);
@@ -58,12 +56,11 @@ namespace TwitterDdd.Host
             edpConfiguration.EnableInstallers();
             edpConfiguration.UsePersistence<InMemoryPersistence>();
             edpConfiguration.SendFailedMessagesTo("error");
-            /*
             edpConfiguration.UseContainer<AutofacBuilder>(
                 customizations: customizations =>
                 {
                     customizations.ExistingLifetimeScope(container);
-                });*/
+                });
             // 2. Configure transport & routing
             var transport = edpConfiguration.UseTransport<MsmqTransport>();
             transport.Transactions(TransportTransactionMode.None);

@@ -33,11 +33,11 @@ namespace TwitterDdd.Domain.Message.Models
     public class MessageAggregate : IMessageAggregate
     {
         private readonly IMessageContentParser _messageContentParser;
-        private readonly IMessageSession _messageSession;
+        private readonly IMessageHandlerContext _context;
 
-        public MessageAggregate(IMessageSession messageSession)
+        public MessageAggregate(IMessageHandlerContext context)
         {
-            _messageSession = messageSession;
+            _context = context;
             State = new MessageAggregateState
             {
                 Content = string.Empty,
@@ -108,7 +108,7 @@ namespace TwitterDdd.Domain.Message.Models
                 throw new InvalidOperationException("message is not ready to be sent");
             }
 
-            await _messageSession.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags)).ConfigureAwait(false);
+            await _context.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags)).ConfigureAwait(false);
         }
 
         public void Cancel()

@@ -26,7 +26,7 @@ namespace TwitterDdd.Domain.Tests.Message
     public class MessageAggregateFixture
     {
         private IMessageAggregate _messageAggregate;
-        private Mock<IMessageSession> _messageSessionStub;
+        private Mock<IMessageHandlerContext> _messageContextStub;
 
         [Fact]
         public void When_Passing_Invalid_Parameters_To_Create_Then_Exceptions_Are_Thrown()
@@ -44,8 +44,8 @@ namespace TwitterDdd.Domain.Tests.Message
 
         private void InitializeFakeObjects()
         {
-            _messageSessionStub = new Mock<IMessageSession>();
-            _messageAggregate = new MessageAggregate(_messageSessionStub.Object);
+            _messageContextStub = new Mock<IMessageHandlerContext>();
+            _messageAggregate = new MessageAggregate(_messageContextStub.Object);
         }
     }
 }

@@ -22,6 +22,11 @@ namespace TwitterDdd.DataAccess.InMemory.MessageDomain
     {
         private static MessageContext _instance;
 
+        private MessageContext()
+        {
+            Messages = new List<Message>();
+        }
+
         public static MessageContext Instance()
         {
             if (_instance == null)
