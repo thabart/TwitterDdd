@@ -15,22 +15,13 @@
 #endregion
 
 using System;
+using TwitterDdd.DataAccess.InMemory.UserDomain;
 
-namespace TwitterDdd.Domain.User
+namespace TwitterDdd.DataAccess.InMemory.MessageDomain
 {
-    public enum UserStates
+    internal class Share
     {
-        NotCreated,
-        Created,
-        Enabled,
-        Disabled
-    }
-
-    public class UserState
-    {
-        public string Subject { get; set; }
-        public string Picture { get; set; }
         public DateTime CreateDateTime { get; set; }
-        public UserStates State { get; set; }
+        public User User { get; set; }
     }
 }

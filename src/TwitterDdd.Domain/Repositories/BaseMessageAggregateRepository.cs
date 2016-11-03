@@ -16,23 +16,29 @@
 
 using System;
 using System.Threading.Tasks;
-using TwitterDdd.DataAccess.InMemory.Mappings;
-using TwitterDdd.DataAccess.InMemory.MessageDomain;
 using TwitterDdd.Domain.Message;
-using TwitterDdd.Domain.Repositories;
 
-namespace TwitterDdd.DataAccess.InMemory
+namespace TwitterDdd.Domain.Repositories
 {
-    internal class MessageAggregateRepository : BaseMessageAggregateRepository
+    public class BaseMessageAggregateRepository : IMessageAggregateRepository
     {
-        protected override Task<bool> InsertMessage(MessageAggregateState state)
+        public Task<MessageAggregate> GetMessage(string id)
         {
-            if (state == null)
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertMessage(MessageAggregate message)
+        {
+            if (message == null)
             {
-                throw new ArgumentNullException(nameof(state));
+                throw new ArgumentNullException(nameof(message));
             }
-                        
-            MessageContext.Instance().Messages.Add(state.ToModel());
+
+            return InsertMessage(message.State);
+        }
+
+        protected virtual Task<bool> InsertMessage(MessageAggregateState state)
+        {
             return Task.FromResult(true);
         }
     }

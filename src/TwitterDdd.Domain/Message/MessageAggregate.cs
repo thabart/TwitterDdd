@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using TwitterDdd.Domain.Parsers;
 using TwitterDdd.Domain.User;
 
 namespace TwitterDdd.Domain.Message
@@ -29,19 +30,25 @@ namespace TwitterDdd.Domain.Message
 
     public class MessageAggregate : IMessageAggregate
     {
-        private readonly MessageAggregateState _state;
+        private readonly IMessageContentParser _messageContentParser;
 
         public MessageAggregate()
         {
-            _state = new MessageAggregateState();
-            _state.Content = string.Empty;
-            _state.HashTags = new List<string>();
-            _state.Sender = null;
-            _state.Attachments = new List<AttachmentState>();
-            _state.Status = MessageStatus.NotCreated;
-            _state.Likes = new List<LikeState>();
-            _state.Shares = new List<ShareState>();
+            State = new MessageAggregateState
+            {
+                Content = string.Empty,
+                HashTags = new List<string>(),
+                Sender = string.Empty,
+                Attachments = new List<AttachmentState>(),
+                Status = MessageStatus.NotCreated,
+                Likes = new List<LikeState>(),
+                Shares = new List<ShareState>(),
+                IsPinned = false
+            };
+            _messageContentParser = new MessageContentParser();
         }
+
+        internal MessageAggregateState State { get; private set; }
 
         public void Create(string content, string senderSubject)
         {
@@ -61,7 +68,7 @@ namespace TwitterDdd.Domain.Message
                 throw new ArgumentNullException(senderSubject);
             }
             
-            if (_state.Status != MessageStatus.NotCreated)
+            if (State.Status != MessageStatus.NotCreated)
             {
                 throw new InvalidOperationException("message cannot be create twice");
             }
@@ -71,18 +78,15 @@ namespace TwitterDdd.Domain.Message
             userAggregate.Create(senderSubject);
 
             // 3. Parse the content to extract the hashtags.
-            _state.Content = content;
-            _state.Sender = new SenderState
-            {
-                Subject = senderSubject
-            };
-            _state.Status = MessageStatus.ReadyToBeSent;
-            _state.HashTags = new[] { "hashtag" };
+            State.Content = content;
+            State.Sender = senderSubject;
+            State.Status = MessageStatus.ReadyToBeSent;
+            State.HashTags = _messageContentParser.ExtractHashTags(content);
         }
 
         public void AddLike(string senderSubject)
         {
-            if (_state.Status != MessageStatus.ReadyToBeSent)
+            if (State.Status != MessageStatus.ReadyToBeSent)
             {
                 // TODO : Send code + message
                 throw new InvalidOperationException();
@@ -99,7 +103,7 @@ namespace TwitterDdd.Domain.Message
         public void Send()
         {
             // 1. Check status
-            if (_state.Status != MessageStatus.ReadyToBeSent)
+            if (State.Status != MessageStatus.ReadyToBeSent)
             {
                 throw new InvalidOperationException("message is not ready to be sent");
             }
@@ -107,7 +111,7 @@ namespace TwitterDdd.Domain.Message
 
         public void Cancel()
         {
-            if (_state.Status != MessageStatus.ReadyToBeSent)
+            if (State.Status != MessageStatus.ReadyToBeSent)
             {
                 // TODO : send code + message
                 throw new InvalidOperationException();

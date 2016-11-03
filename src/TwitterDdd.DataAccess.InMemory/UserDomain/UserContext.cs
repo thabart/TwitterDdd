@@ -14,23 +14,24 @@
 // limitations under the License.
 #endregion
 
-using System;
+using System.Collections.Generic;
 
-namespace TwitterDdd.Domain.User
+namespace TwitterDdd.DataAccess.InMemory.UserDomain
 {
-    public enum UserStates
+    internal class UserContext
     {
-        NotCreated,
-        Created,
-        Enabled,
-        Disabled
-    }
+        private static UserContext _instance;
 
-    public class UserState
-    {
-        public string Subject { get; set; }
-        public string Picture { get; set; }
-        public DateTime CreateDateTime { get; set; }
-        public UserStates State { get; set; }
+        public static UserContext Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new UserContext();
+            }
+
+            return _instance;
+        }
+
+        public IEnumerable<User> Users { get; set; }
     }
 }

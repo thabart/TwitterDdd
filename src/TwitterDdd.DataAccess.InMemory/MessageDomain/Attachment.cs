@@ -14,10 +14,11 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.Domain.Message
+namespace TwitterDdd.DataAccess.InMemory.MessageDomain
 {
-    public class SenderState
+    internal class Attachment
     {
-        public string Subject { get; set; }
+        public int Type { get; set; }
+        public string Url { get; set; }
     }
 }

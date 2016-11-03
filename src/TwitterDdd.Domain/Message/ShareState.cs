@@ -21,6 +21,6 @@ namespace TwitterDdd.Domain.Message
     public class ShareState
     {
         public string Subject { get; set; }
-        public DateTime CreatedDateTime { get; set; }
+        public DateTime CreateDateTime { get; set; }
     }
 }

@@ -14,9 +14,13 @@
 // limitations under the License.
 #endregion
 
-namespace TwitterDdd.DataAccess.InMemory
+namespace TwitterDdd.DataAccess.InMemory.UserDomain
 {
-    public class MessagingContext
+    internal class User
     {
+        public string Id { get; set; }
+        public string Picture { get; set; }
+        public string CreateDateTime { get; set; }
+        public int Status { get; set; }
     }
 }

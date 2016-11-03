@@ -15,22 +15,21 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using TwitterDdd.DataAccess.InMemory.UserDomain;
 
-namespace TwitterDdd.Domain.User
+namespace TwitterDdd.DataAccess.InMemory.MessageDomain
 {
-    public enum UserStates
+    internal class Message
     {
-        NotCreated,
-        Created,
-        Enabled,
-        Disabled
-    }
-
-    public class UserState
-    {
-        public string Subject { get; set; }
-        public string Picture { get; set; }
+        public string Content { get; set; }
+        public int Status { get; set; }
+        public bool IsPinned { get; set; }
+        public User Sender { get; set; }
         public DateTime CreateDateTime { get; set; }
-        public UserStates State { get; set; }
+        public IEnumerable<Attachment> Attachments { get; set; }
+        public IEnumerable<HashTag> HashTags { get; set; }
+        public IEnumerable<Share> Shares { get; set; }
+        public IEnumerable<Like> Likes { get; set; }
     }
 }

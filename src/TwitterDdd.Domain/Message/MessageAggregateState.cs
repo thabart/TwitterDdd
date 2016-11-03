@@ -14,6 +14,7 @@
 // limitations under the License.
 #endregion
 
+using System;
 using System.Collections.Generic;
 
 namespace TwitterDdd.Domain.Message
@@ -30,8 +31,9 @@ namespace TwitterDdd.Domain.Message
     {
         public string Content { get; set; }
         public MessageStatus Status { get; set; }
-        public SenderState Sender { get; set; }
+        public string Sender { get; set; }
         public bool IsPinned { get; set; }
+        public DateTime CreateDateTime { get; set;}
         public IEnumerable<string> HashTags { get; set; }
         public IEnumerable<AttachmentState> Attachments { get; set; }
         public IEnumerable<LikeState> Likes { get; set; }
