@@ -14,23 +14,23 @@
 // limitations under the License.
 #endregion
 
-using Microsoft.Extensions.DependencyInjection;
+using Autofac;
 using System;
 using TwitterDdd.Domain.Message.Repositories;
 
 namespace TwitterDdd.Writer.DataAccess.InMemory
 {
-    public static class ServiceCollectionExtension
+    public static class ContainerBuilderExtension
     {
-        public static IServiceCollection UseInMemory(this IServiceCollection serviceCollection)
+        public static ContainerBuilder UseInMemory(this ContainerBuilder containerBuilder)
         {
-            if (serviceCollection == null)
+            if (containerBuilder == null)
             {
-                throw new ArgumentNullException(nameof(serviceCollection));
+                throw new ArgumentNullException(nameof(containerBuilder));
             }
 
-            serviceCollection.AddTransient<IMessageAggregateRepository, MessageAggregateRepository>();
-            return serviceCollection;
+            containerBuilder.RegisterType<MessageAggregateRepository>().As<IMessageAggregateRepository>();
+            return containerBuilder;
         }
     }
 }

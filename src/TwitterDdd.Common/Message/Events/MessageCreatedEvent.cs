@@ -17,23 +17,20 @@
 using NServiceBus;
 using System;
 using System.Collections.Generic;
-using TwitterDdd.Domain.Message.Models;
 
-namespace TwitterDdd.Domain.Message.Events
+namespace TwitterDdd.Common.Message.Events
 {
     public class MessageCreatedEvent : IEvent
     {
-        public MessageCreatedEvent(Guid id, MessageStatus status, string content, string sender, IEnumerable<string> hashTags)
+        public MessageCreatedEvent(Guid id, string content, string sender, IEnumerable<string> hashTags)
         {
             Id = id;
-            Status = status;
             Content = content;
             Sender = sender;
             HashTags = hashTags;
         }
 
         public Guid Id { get; private set; }
-        public MessageStatus Status { get; private set; }
         public string Content { get; set; }
         public string Sender { get; set; }
         public IEnumerable<string> HashTags { get; set; }

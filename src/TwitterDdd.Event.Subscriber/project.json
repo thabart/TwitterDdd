@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
-  "description": "TwitterDdd.Domain Class Library",
-  "authors": [ "thierry habart" ],
+  "description": "TwitterDdd.Event.Subscriber",
+  "authors": [ "" ],
   "packOptions": {
     "tags": [ "" ],
     "licenseUrl": "",
@@ -12,16 +12,13 @@
       "target": "project"
     }
   },
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
   "tooling": {
-    "defaultNamespace": "SimpleIdentityServer.Core"
+    "defaultNamespace": "TwitterDdd.Event.Subscriber"
   },
   "frameworks": {
-    "net46": {
-      "buildOptions": {
-        "define": [
-          "NET"
-        ]
-      }
-    }
+    "net46": { }
   }
 }

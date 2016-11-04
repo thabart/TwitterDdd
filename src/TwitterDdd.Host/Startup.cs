@@ -14,22 +14,18 @@
 // limitations under the License.
 #endregion
 
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
-using TwitterDdd.Writer.DataAccess.InMemory;
-using TwitterDdd.Domain.Message.Commands;
 
 namespace TwitterDdd.Host
 {
     public class Startup
     {
-        private const string EndPointName = "TwitterDdd";
+        private const string EndPointName = "TwitterDdd.Client";
 
         public Startup(IHostingEnvironment env)
         {
@@ -45,11 +41,6 @@ namespace TwitterDdd.Host
         
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = new ContainerBuilder();
-            services.UseInMemory();
-            builder.Populate(services);
-            // builder.RegisterInstance<IMessageAggregateRepository>(new MessageAggregateRepository());
-            var container = builder.Build();
             // Configure NServiceBus
             // 1. Configure endpoint.
             var edpConfiguration = new EndpointConfiguration(EndPointName);
@@ -57,18 +48,7 @@ namespace TwitterDdd.Host
             edpConfiguration.EnableInstallers();
             edpConfiguration.UsePersistence<InMemoryPersistence>();
             edpConfiguration.SendFailedMessagesTo("error");
-            edpConfiguration.UseContainer<AutofacBuilder>(
-                customizations: customizations =>
-                {
-                    customizations.ExistingLifetimeScope(container);
-                });
-            // 2. Configure transport & routing
-            var transport = edpConfiguration.UseTransport<MsmqTransport>();
-            transport.Transactions(TransportTransactionMode.None);
-            var routing = transport.Routing();
-            routing.RouteToEndpoint(
-                assembly: typeof(SendMessageCommand).Assembly,
-                destination: EndPointName);
+
             // 3. Register message session.
             var edpInstance = Endpoint.Start(edpConfiguration).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(edpInstance);

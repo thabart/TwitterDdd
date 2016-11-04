@@ -17,7 +17,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using System.Threading.Tasks;
-using TwitterDdd.Domain.Message.Commands;
+using TwitterDdd.Common.Message.Commands;
 
 namespace TwitterDdd.Host.Controllers
 {
@@ -39,7 +39,7 @@ namespace TwitterDdd.Host.Controllers
                 Content = "content",
                 SenderSubject = "subject"
             };
-            await _messageSession.Send(command);
+            await _messageSession.Send("TwitterDdd.Command.Subscriber", command);
             return new OkResult();
         }
     }

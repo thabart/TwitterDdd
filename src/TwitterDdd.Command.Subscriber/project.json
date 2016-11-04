@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "description": "TwitterDdd.Command.Subscriber",
+  "authors": [ "" ],
+  "packOptions": {
+    "tags": [ "" ],
+    "licenseUrl": "",
+    "projectUrl": ""
+  },
+  "dependencies": {
+    "TwitterDdd.Domain": {
+      "target": "project"
+    },
+    "Autofac": "4.1.1",
+    "NServiceBus.Autofac": "6.0.0",
+    "TwitterDdd.Writer.DataAccess.InMemory": {
+      "target": "project"
+    }
+  },
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "tooling": {
+    "defaultNamespace": "TwitterDdd.Command.Subscriber"
+  },
+  "frameworks": {
+    "net46": { }
+  }
+}

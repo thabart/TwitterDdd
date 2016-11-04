@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-*",
-  "description": "TwitterDdd.Domain Class Library",
+  "description": "TwitterDdd.Common Class Library",
   "authors": [ "thierry habart" ],
   "packOptions": {
     "tags": [ "" ],
@@ -8,12 +8,10 @@
     "projectUrl": ""
   },
   "dependencies": {
-    "TwitterDdd.Common": {
-      "target": "project"
-    }
+    "NServiceBus": "6.0.0"
   },
   "tooling": {
-    "defaultNamespace": "SimpleIdentityServer.Core"
+    "defaultNamespace": "TwitterDdd.Common"
   },
   "frameworks": {
     "net46": {

@@ -16,6 +16,7 @@
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace TwitterDdd.Host
 {
@@ -23,6 +24,7 @@ namespace TwitterDdd.Host
     {
         public static void Main(string[] args)
         {
+            Console.Title = "TwitterDdd.Server";
             // To launch the application : dotnet run --server.urls=http://*:5000
             var configuration = new ConfigurationBuilder()
                 .AddCommandLine(args)

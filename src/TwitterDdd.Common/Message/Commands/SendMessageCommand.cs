@@ -16,7 +16,7 @@
 
 using NServiceBus;
 
-namespace TwitterDdd.Domain.Message.Commands
+namespace TwitterDdd.Common.Message.Commands
 {
     public class SendMessageCommand : ICommand
     {

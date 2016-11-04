@@ -18,8 +18,9 @@ using System.Threading.Tasks;
 using NServiceBus;
 using TwitterDdd.Domain.Message.Models;
 using TwitterDdd.Domain.Message.Repositories;
+using TwitterDdd.Common.Message.Commands;
 
-namespace TwitterDdd.Domain.Message.Commands.Handlers
+namespace TwitterDdd.Command.Subscriber
 {
     public class MessageCommandHandler : IHandleMessages<SendMessageCommand>
     {

@@ -18,7 +18,7 @@ using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TwitterDdd.Domain.Message.Events;
+using TwitterDdd.Common.Message.Events;
 using TwitterDdd.Domain.Message.Parsers;
 
 namespace TwitterDdd.Domain.Message.Models
@@ -108,7 +108,7 @@ namespace TwitterDdd.Domain.Message.Models
                 throw new InvalidOperationException("message is not ready to be sent");
             }
 
-            await _context.Publish(new MessageCreatedEvent(State.Id, State.Status, State.Content, State.Sender, State.HashTags));
+            await _context.Publish(new MessageCreatedEvent(State.Id, State.Content, State.Sender, State.HashTags));
         }
 
         public void Cancel()

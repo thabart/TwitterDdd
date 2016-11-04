@@ -16,15 +16,17 @@
 
 using System.Threading.Tasks;
 using NServiceBus;
-using TwitterDdd.Domain.Message.Events;
+using TwitterDdd.Common.Message.Events;
+using System;
 
-namespace TwitterDdd.Events.Consumer.Message.Handlers
+namespace TwitterDdd.Event.Subscriber
 {
     public class MessageCreatedEventHandler : IHandleMessages<MessageCreatedEvent>
     {
         public Task Handle(MessageCreatedEvent message, IMessageHandlerContext context)
         {
-            return Task.FromResult(0);
+            Console.WriteLine("the message has been received");
+            return Task.CompletedTask;
         }
     }
 }

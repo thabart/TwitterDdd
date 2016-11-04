@@ -29,10 +29,7 @@
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
     "Autofac": "4.1.1",
     "NServiceBus.Autofac": "6.0.0",
-    "TwitterDdd.Domain": {
-      "target": "project"
-    },
-    "TwitterDdd.Writer.DataAccess.InMemory": {
+    "TwitterDdd.Common": {
       "target": "project"
     }
   },
